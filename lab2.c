@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include<GL/glut.h>
+#include<math.h>
 #define maxSize 480.0
 #define minSize 20.0
+#define radius 20.0
 void display(){
     float half = (maxSize-20)/(minSize*2.0);
     float mid = (maxSize/2.0)+ 10.0;
@@ -28,6 +30,7 @@ void display(){
         glVertex2f(245.0,mid+(20.0*i));
         glVertex2f(255.0,mid+(20.0*i));
     }
+    
     //arrow y
     glVertex2f(240.0,470.0);
     glVertex2f(mid,maxSize);
@@ -38,6 +41,38 @@ void display(){
     glVertex2f(maxSize,mid);
     glVertex2f(maxSize,mid);
     glVertex2f(470.0,260.0);
+    glEnd();
+    //second Q
+    glBegin(GL_LINE_STRIP);
+    for(float i=1.0 ; i<360.0 ; i++){
+        float angle = (i*3.14)/180;
+        glVertex2f(90 + 40.0*cos(angle),350 +  40.0 * sin(angle));
+        
+    }
+    glEnd();
+    //First Q
+    glBegin(GL_LINE_STRIP);
+    for(float i=1.0 ; i<360.0 ; i++){
+        float angle = (i*3.14)/180;
+        glVertex2f(410 + 40.0*cos(angle),350 +  40.0 * sin(angle));
+        
+    }
+    glEnd();
+    //fourth Q
+    glBegin(GL_LINE_STRIP);
+    for(float i=1.0 ; i<360.0 ; i++){
+        float angle = (i*3.14)/180;
+        glVertex2f(410 + 40.0*cos(angle),150 +  40.0 * sin(angle));
+        
+    }
+    glEnd();
+    //third q
+     glBegin(GL_LINE_STRIP);
+    for(float i=1.0 ; i<360.0 ; i++){
+        float angle = (i*3.14)/180;
+        glVertex2f(90 + 40.0*cos(angle),150 +  40.0 * sin(angle));
+        
+    }
     glEnd();
     glFlush();
 
