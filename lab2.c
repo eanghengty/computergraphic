@@ -5,9 +5,62 @@
 #define maxSize 480.0
 #define minSize 20.0
 #define radius 20.0
-void num_on_the_line(){
-     
+
+void pre_multiply(){
+
 }
+void post_multiply(){
+
+}
+void nagate_multiply(){
+
+}
+void multiply_scalar_with_vector(int scalar , int vectxa ,int vectya){
+        int result1;
+        int result2;
+        result1 = scalar * vectxa;
+        result2 = scalar * vectya;
+}
+void add_vector(int vectxa ,int vectya, int vectxb, int vectyb){
+    int result1;
+    int result2;
+    result1 = vectxa + vectxb;
+    result2 = vectya + vectyb;
+
+}
+void substract_vector(int vectxa ,int vectya, int vectxb, int vectyb){
+    int result1;
+    int result2;
+    result1 = vectxa - vectxb;
+    result2 = vectya - vectyb;
+}
+void compute_magnitude(int vec1, int vec2){
+    int result;
+    result = sqrt(pow(vec1,2) + pow(vec2,2));
+}
+void normalize(int vec1 , int vec2){
+    int v_prime;
+    int v1;
+    int v2;
+    v_prime = sqrt(pow(vec1,2) + pow(vec2,2));
+    v1 = vec1 * (1/v_prime);
+    v2 = vec2 * (1/v_prime);
+}
+void dot_product(int vectxa ,int vectya, int vectxb, int vectyb){
+    int result;
+    result = (vectxa * vectxb) + (vectya * vectyb);
+}
+void cross_product(int vectxa ,int vectya, int vectza, int vectxb, int vectyb , int vectzb){
+    int result;
+    result = ((vectya * vectzb) -(vectyb * vectya)) - ((vectxa * vectzb) -(vectxb * vectya)) + ((vectxa * vectyb) -(vectxb * vectya));
+}
+void transpose(){
+
+}
+
+
+
+
 void display(){
     float half = (maxSize-20)/(minSize*2.0);
     float mid = (maxSize/2.0)+ 10.0;
@@ -81,6 +134,16 @@ void display(){
         
     }
     glEnd();
+
+    glBegin(GL_POINT);
+    for(int i = 20; i <  440; i = i + 20){
+        glVertex2f(30 * sin(2 * 3.14 * 30 * i),250);
+    }
+    // glVertex2f(30, 250);
+    // glVertex2f(400, 400);
+    glEnd();
+
+
     //letter y
     glColor3f(1.0,0.0,0.0);
     glRasterPos2f(245.0,490.0);
