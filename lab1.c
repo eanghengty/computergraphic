@@ -21,7 +21,7 @@ int main(int argc , char** argv){
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0,3.0,0.0,3.0);
+    glOrtho(0.0,3.0,0.0,3.0);
    
     glutDisplayFunc(display);
     glutMainLoop();

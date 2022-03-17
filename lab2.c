@@ -2,10 +2,17 @@
 #include<GL/glut.h>
 #include<math.h>
 #include<string.h>
+#include<GL/gl.h>
+
 #define maxSize 480.0
 #define minSize 20.0
 #define radius 20.0
 
+float color[3] = {1.0,1.0,1.0};
+float geometry_type_color[3]={1.0,1.0,1.0};
+unsigned int gl_shape[2] = {GL_LINE_STRIP,GL_LINES};
+float unit_color[3]={1.0,1.0,1.0};
+int choice = 1;
 void pre_multiply(){
 
 }
@@ -15,6 +22,99 @@ void post_multiply(){
 void nagate_multiply(){
 
 }
+void selectAxisColor(int);
+
+void createMenu(){
+  int submenu;
+  int menu;
+  int submenu2;
+  int submenu3;
+  int submenu1;
+  //create submenu
+  
+  submenu2=glutCreateMenu(selectAxisColor);
+  glutAddMenuEntry("White color",4);
+  glutAddMenuEntry("Brown color",5);
+  glutAddMenuEntry("Cyan color",6); 
+  submenu3=glutCreateMenu(selectAxisColor);
+  glutAddMenuEntry("Point",7);
+  glutAddMenuEntry("Plus",8);
+  glutAddMenuEntry("Minus",9);
+  glutAddMenuEntry("Line",10); 
+  submenu = glutCreateMenu(selectAxisColor);
+  glutAddMenuEntry("Cyan color", 1);
+  glutAddMenuEntry("Purple color", 2);
+  glutAddMenuEntry("Orange color", 3);
+  glutAddSubMenu("Unit color",submenu3);
+  glutAddSubMenu("Geometry types",submenu2);
+  submenu1=glutCreateMenu(selectAxisColor);
+  glutAddMenuEntry("Parabola",11);
+  glutAddMenuEntry("Sine wave",12);
+  glutAddMenuEntry("Star", 13);
+  // create menu
+  menu = glutCreateMenu(selectAxisColor);
+  // add submenu to menu
+  glutAddSubMenu("Axis Color", submenu);
+  glutAddSubMenu("Object Type", submenu1);
+
+   
+  // attach menu to mouse's right button
+  glutAttachMenu(GLUT_RIGHT_BUTTON);
+  }
+
+void selectAxisColor(int menuId){
+  if(menuId == 1){
+     
+      color[0] = 0.5;
+      color[1] = 1.0;
+      color[2] = 1.0;
+     
+  }
+  else if(menuId == 2){
+      
+      color[0] = 1.0;
+      color[1] = 0.0;
+      color[2] = 1.0;
+  }
+  else if(menuId == 3){
+      
+      color[0] = 1.0;
+      color[1] = 0.5;
+      color[2] = 0.0;
+  }
+  if(menuId == 7){
+      gl_shape[0] = GL_POINTS;
+      gl_shape[1] = GL_POINTS;
+  }
+  
+  else if(menuId == 10){
+      gl_shape[0] = GL_LINE_STRIP;
+      gl_shape[1] = GL_LINES;
+  }
+  if(menuId == 5){
+      geometry_type_color[0]=1.0;
+      geometry_type_color[1]=0.0;
+      geometry_type_color[2]=0.0;
+  }
+  else if(menuId == 6){
+      geometry_type_color[0]=0.5;
+      geometry_type_color[1]=1.0;
+      geometry_type_color[2]=1.0;
+  }
+  else if(menuId == 4){
+      geometry_type_color[0]=1.0;
+      geometry_type_color[1]=1.0;
+      geometry_type_color[2]=1.0;
+  }
+  if(menuId == 13){
+      choice = 3;
+  }
+  else if(menuId == 12){
+      choice=2;
+  }
+
+}
+
 void multiply_scalar_with_vector(int scalar , int vectxa ,int vectya){
         int result1;
         int result2;
@@ -67,6 +167,7 @@ void display(){
 
     glClear(GL_COLOR_BUFFER_BIT);
     
+    glColor3f(color[0],color[1],color[2]);
     glBegin(GL_LINES);
     
     glVertex2f(minSize,mid);
@@ -110,14 +211,21 @@ void display(){
         
     }
     glEnd();
+    
+   
+
+
+
     //First Q
-    glBegin(GL_LINE_STRIP);
-    for(float i=1.0 ; i<360.0 ; i++){
-        float angle = (i*3.14)/180;
-        glVertex2f(410 + 40.0*cos(angle),350 +  40.0 * sin(angle));
+    // glBegin(GL_LINE_STRIP);
+    // for(float i=1.0 ; i<360.0 ; i++){
+    //     float angle = (i*3.14)/180;
+    //     glVertex2f(410 + 40.0*cos(angle),350 +  40.0 * sin(angle));
         
-    }
-    glEnd();
+    // }
+    // glEnd();
+    //star
+    
     //fourth Q
     glBegin(GL_LINE_STRIP);
     for(float i=1.0 ; i<360.0 ; i++){
@@ -145,7 +253,7 @@ void display(){
 
 
     //letter y
-    glColor3f(1.0,0.0,0.0);
+    // glColor3f(1.0,0.0,0.0);
     glRasterPos2f(245.0,490.0);
   
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Y');
@@ -423,21 +531,100 @@ void display(){
         }
         
     }
+    glColor3f(geometry_type_color[0],geometry_type_color[1],geometry_type_color[2]);
+     //sinewave
+     
+    
 
+     if(choice == 3){
+
+
+    glBegin(gl_shape[1]);
+    
+    for(int i= 0; i<= (425-390)/5 ; i++){
+        glVertex2f(390 + ((i) * 5),270 + ((i) * 18.57));
+        if(i>0){
+            glVertex2f(390 + ((i-1)*5),270 + ((i-1) * 18.57));
+        }
+        
+    }
+     for(int i= 0 ;i<= (460-425)/5 ; i++){
+        glVertex2f(425 + ((i) * 5),400 - ((i) * 18.57));
+        if(i>0){
+            glVertex2f(425 + ((i-1)*5),400 - ((i-1) * 18.57));
+        }
+        
+    }
+    
+
+
+    // glVertex2f(390,270);
+    // glVertex2f(425,400);
+    // glVertex2f(460,270);
+    // glVertex2f(425,400);
+
+    glVertex2f(390,270);
+    glVertex2f(405,283.13);
+    glVertex2f(405,283.13);
+    glVertex2f(420,296.26);
+    glVertex2f(420,296.26);
+    glVertex2f(435,309.39);
+    glVertex2f(435,309.39);
+    glVertex2f(450,322.52);
+    glVertex2f(450,322.52);
+    glVertex2f(465,335.65);
+    glVertex2f(465,335.65);
+    glVertex2f(480,350);
+
+    glVertex2f(460,270);
+    glVertex2f(445,283.13);
+    glVertex2f(445,283.13);
+    glVertex2f(430,296.26);
+    glVertex2f(430,296.26);
+    glVertex2f(415,309.39);
+    glVertex2f(415,309.39);
+    glVertex2f(400,322.52);
+    glVertex2f(400,322.52);
+    glVertex2f(385,335.65);
+    glVertex2f(385,335.65);
+    glVertex2f(370,350);
+
+    for(int i = 0 ; i <= (480 - 370)/10 ; i++)
+    {
+    glVertex2f(370 + (i*10),350);
+    if(i > 0){
+        glVertex2f(370 + ((i-1)*10),350);
+    }
+    
+    }
+     glEnd();
+     }
+    else if(choice ==2){
+        glBegin(gl_shape[0]);
+    
+    for(int i = 0 ; i < 380 ; i = i +20){
+        glVertex2f(70 + i,250 + (60*(sin((i*3.14)/180))));
+    }
+  
+    glEnd();
+    }
+   
     glFlush();
+    glutPostRedisplay();
 
 }
 void text(){
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0,0.0,0.0);
+    // glColor3f(1.0,0.0,0.0);
     
 }
 void view(){
    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
+     glMatrixMode(GL_PROJECTION);
+     glLoadIdentity();
+   
     gluOrtho2D(0.0,500.0,0.0,500.0);
+    
 }
 int main(int argc , char** argv){
     glutInit(&argc,argv);
@@ -445,8 +632,11 @@ int main(int argc , char** argv){
     glutInitWindowPosition(100,100);
     glutCreateWindow("lab2");
     view();
-    glutDisplayFunc(display);
+    createMenu();
    
+    glutDisplayFunc(display);
+    
     glutMainLoop();
+    
     return 0;
 }

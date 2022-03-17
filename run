@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cc $1 -lglut -lGLU -lGL -lm
+cc $1 -lglut -lGLU  -lGL -lm
+./a.out
